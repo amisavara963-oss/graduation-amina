@@ -160,15 +160,15 @@
 /* GALERÍA DE FOTOS */
 
 .photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     margin-bottom: 40px;
 }
 
 .photo-gallery img {
     width: 100%;
-    height: 350px;
+    height: 280px;
     object-fit: cover;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(154, 0, 2, 0.15);
@@ -430,10 +430,10 @@
             <!-- CONTENIDO PRINCIPAL -->
             <div class="content">
     <!-- FOTOS -->
-    <div class="photo-gallery">
-        <img src="F9461AFE-CF82-48B1-BBEB-E3B4DA6E3E32.jpeg" alt="Amina Isabela">
-        <img src="600E676E-1871-47C6-9346-74A2B7D941EA.jpeg" alt="Amina Isabela">
-    </div>
+   <div class="photo-gallery">
+    <img src="F9461AFE-CF82-48B1-BBEB-E3B4DA6E3E32.jpeg" alt="Amina Isabela">
+    <img src="600E676E-1871-47C6-9346-74A2B7D941EA.jpeg" alt="Amina Isabela">
+</div>
 
     <!-- CUENTA REGRESIVA -->
     <div class="countdown-section">
