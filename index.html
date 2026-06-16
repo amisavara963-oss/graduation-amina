@@ -355,24 +355,6 @@
             margin-bottom: 10px;
         }
 
-        .music-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 25px;
-            background: #FFB3BB;
-            color: #9A0002;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .music-link:hover {
-            background: #9A0002;
-            color: white;
-            transform: translateY(-2px);
-        }
-
         /* ANIMACIONES */
         @keyframes slideDown {
             from {
@@ -446,11 +428,6 @@
     </style>
 </head>
 <body>
-    <!-- AUDIO DE FONDO -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="https://www.youtube.com/embed/1x1wjGKHjBI?si=eRgig_JPEsPHisDf" type="audio/mpeg">
-    </audio>
-
     <!-- SECCIÓN DE PREGUNTA -->
     <div class="question-section active" id="questionSection">
         <h1>✨ Bienvenidx ✨</h1>
@@ -573,10 +550,6 @@
                     <p>✨ Te esperamos en este día especial ✨</p>
                     <p>Con cariño,</p>
                     <p style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #9A0002; margin: 10px 0;">Amina Isabela</p>
-                    
-                    <a href="https://youtu.be/1x1wjGKHjBI?si=eRgig_JPEsPHisDf" target="_blank" class="music-link">
-                        🎵 Escucha la música
-                    </a>
                 </div>
             </div>
         </div>
@@ -641,13 +614,6 @@
 
         // Focus en el input
         document.getElementById('answerInput').focus();
-
-        // Reproducir música
-        const audio = document.getElementById('backgroundMusic');
-        audio.volume = 0.3; // Volumen al 30%
-        audio.play().catch(function(error) {
-            console.log("La música se reproducirá cuando el usuario interactúe con la página");
-        });
     </script>
 </body>
 </html>
