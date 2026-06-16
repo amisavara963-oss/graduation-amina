@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduación Amina Isabela - Comunicación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #9A0002 0%, #FFB3BB 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* SECCIÓN DE PREGUNTA */
+        .question-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(154, 0, 2, 0.3);
+            animation: slideDown 0.6s ease-out;
+            display: none;
+        }
+
+        .question-section.active {
+            display: block;
+        }
+
+        .question-section h1 {
+            font-family: 'Playfair Display', serif;
+            color: #9A0002;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .question-section p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 20px;
+            border: 2px solid #FFB3BB;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #9A0002;
+            box-shadow: 0 0 10px rgba(154, 0, 2, 0.2);
+        }
+
+        .btn-primary {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #9A0002, #C70003);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(154, 0, 2, 0.3);
+        }
+
+        .error-message {
+            color: #9A0002;
+            font-size: 0.95em;
+            margin-top: 15px;
+            display: none;
+            animation: shake 0.5s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* SECCIÓN DE INVITACIÓN */
+        .invitation-section {
+            display: none;
+        }
+
+        .invitation-section.active {
+            display: block;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 3px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        /* CUENTA REGRESIVA */
+        .countdown-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #FFB3BB, #FFD4DB);
+            border-radius: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: #9A0002;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .countdown-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(154, 0, 2, 0.1);
+        }
+
+        .countdown-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #9A0002;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* INFORMACIÓN DEL EVENTO */
+        .event-info {
+            margin-bottom: 40px;
+        }
+
+        .event-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: #9A0002;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #9A0002;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: #fff;
+            transform: translateX(5px);
+        }
+
+        .info-icon {
+            font-size: 1.8em;
+            margin-right: 20px;
+            min-width: 30px;
+            color: #9A0002;
+        }
+
+        .info-content h4 {
+            color: #9A0002;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* GALERÍA DE FOTOS */
+        .gallery-section {
+            margin-bottom: 40px;
+        }
+
+        .gallery-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #9A0002;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(154, 0, 2, 0.2);
+            transition: all 0.3s ease;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 3em;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(154, 0, 2, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-placeholder {
+            text-align: center;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            color: #999;
+        }
+
+        /* MAPA */
+        .map-section {
+            margin-bottom: 40px;
+        }
+
+        .map-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #9A0002;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(154, 0, 2, 0.2);
+            height: 350px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #FFB3BB;
+            color: #666;
+        }
+
+        .footer p {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .music-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: #FFB3BB;
+            color: #9A0002;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .music-link:hover {
+            background: #9A0002;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ANIMACIONES */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .countdown-number {
+                font-size: 1.8em;
+            }
+
+            .info-item {
+                flex-direction: column;
+            }
+
+            .info-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .map-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SECCIÓN DE PREGUNTA -->
+    <div class="question-section active" id="questionSection">
+        <h1>✨ Bienvenido ✨</h1>
+        <p>Responde la siguiente pregunta para acceder a la invitación</p>
+        <p style="font-size: 1.3em; color: #9A0002; font-weight: 600; margin: 30px 0;">¿De qué carrera es Amina Isabela?</p>
+        
+        <div class="input-group">
+            <input 
+                type="text" 
+                id="answerInput" 
+                placeholder="Tu respuesta aquí..."
+                autocomplete="off"
+            >
+            <button class="btn-primary" onclick="checkAnswer()">Entrar</button>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            ❌ Respuesta incorrecta. Intenta de nuevo.
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE INVITACIÓN -->
+    <div class="invitation-section" id="invitationSection">
+        <div class="container">
+            <!-- ENCABEZADO -->
+            <div class="header">
+                <h1>🎓 GRADUACIÓN 🎓</h1>
+                <p>Amina Isabela</p>
+            </div>
+
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="content">
+                <!-- CUENTA REGRESIVA -->
+                <div class="countdown-section">
+                    <h2>⏰ Cuenta Regresiva</h2>
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="days">0</div>
+                            <div class="countdown-label">Días</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="hours">0</div>
+                            <div class="countdown-label">Horas</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="minutes">0</div>
+                            <div class="countdown-label">Minutos</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="seconds">0</div>
+                            <div class="countdown-label">Segundos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMACIÓN DEL EVENTO -->
+                <div class="event-info">
+                    <h3>📍 Detalles del Evento</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📅</div>
+                        <div class="info-content">
+                            <h4>Fecha</h4>
+                            <p>20 de Junio de 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">🕖</div>
+                        <div class="info-content">
+                            <h4>Hora</h4>
+                            <p>7:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h4>Ubicación</h4>
+                            <p>Hacienda La Bartola<br>Querétaro, México</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">🎓</div>
+                        <div class="info-content">
+                            <h4>Carrera</h4>
+                            <p>Comunicación</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GALERÍA DE FOTOS -->
+                <div class="gallery-section">
+                    <h3>📸 Galería de Momentos</h3>
+                    <div class="gallery" id="gallery">
+                        <div class="gallery-item">
+                            <span>🖼️</span>
+                        </div>
+                        <div class="gallery-item">
+                            <span>🖼️</span>
+                        </div>
+                        <div class="gallery-item">
+                            <span>🖼️</span>
+                        </div>
+                    </div>
+                    <div class="gallery-placeholder">
+                        💡 Aquí van las fotos. Reemplaza los placeholders con tus imágenes.
+                    </div>
+                </div>
+
+                <!-- MAPA -->
+                <div class="map-section">
+                    <h3>🗺️ Ubicación del Evento</h3>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3731.8485957095267!2d-100.3826194!3d20.5937078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d35c5c5c5c5c5d%3A0x5c5c5c5c5c5c5c5c!2sHacienda%20La%20Bartola!5e0!3m2!1ses!2smx!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="footer">
+                    <p>✨ Te esperamos en este día especial ✨</p>
+                    <p>Con cariño,</p>
+                    <p style="font-family: 'Playfair Display', serif; font-size: 1.3em; color: #9A0002; margin: 10px 0;">Amina Isabela</p>
+                    
+                    <a href="https://youtu.be/1x1wjGKHjBI?si=eRgig_JPEsPHisDf" target="_blank" class="music-link">
+                        🎵 Escucha la música de fondo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar respuesta
+        function checkAnswer() {
+            const answer = document.getElementById('answerInput').value.trim().toLowerCase();
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (answer === 'comunicación' || answer === 'comunicacion') {
+                errorMessage.classList.remove('show');
+                showInvitation();
+            } else {
+                errorMessage.classList.add('show');
+                document.getElementById('answerInput').value = '';
+                document.getElementById('answerInput').focus();
+            }
+        }
+
+        // Permitir Enter para enviar
+        document.getElementById('answerInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        // Mostrar invitación
+        function showInvitation() {
+            document.getElementById('questionSection').classList.remove('active');
+            document.getElementById('invitationSection').classList.add('active');
+            startCountdown();
+        }
+
+        // Cuenta regresiva
+        function startCountdown() {
+            const targetDate = new Date('2026-06-20T19:00:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((difference / 1000 / 60) % 60);
+                    const seconds = Math.floor((difference / 1000) % 60);
+
+                    document.getElementById('days').textContent = days;
+                    document.getElementById('hours').textContent = hours;
+                    document.getElementById('minutes').textContent = minutes;
+                    document.getElementById('seconds').textContent = seconds;
+                } else {
+                    document.getElementById('countdown').innerHTML = '<h2>¡El evento ya comenzó!</h2>';
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Focus en el input
+        document.getElementById('answerInput').focus();
+    </script>
+</body>
+</html>
